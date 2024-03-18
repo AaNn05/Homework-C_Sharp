@@ -30,7 +30,6 @@ class A
         chess[r, c] = 5;
         count = count - 1;
         
-
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
@@ -101,7 +100,7 @@ class A
             if (answer == "y" && count >= 0)
             {
                 var = true;
-
+                
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
@@ -127,37 +126,32 @@ class A
                                     }
                                 }
                             }
-                            Console.WriteLine(n);
+
                             if (n > max)
                             {
                                 max = n;
                                 mr = i;
                                 mc = j;
+
+                                if (m != 0)
+                                {
+                                    m = 0;
+                                }
                             }
-                            else if (n == 0 && (m == 0 || (count == 1 || count == 0)))
+                            else if ((n == 0 && n == max) && m == 0)
                             {
-                                max = n;
+                                m++;
                                 mr = i;
                                 mc = j;
-                                m++;
                             }
-
-
-                            //else /*if (n == 0 && m == 0)*/
-                            //{
-                            //  max = n;
-                            //mr = i;
-                            //mc = j;
-                            //m++;
-                            //}
+                            
                             temp[i, j] = n;
                         }
                     }
                 }
 
                 count = max;
-                Console.WriteLine(count + " count");
-                Console.WriteLine();
+
                 for (int i = 0; i < 8; i++)
                 {
                     for (int j = 0; j < 8; j++)
@@ -172,7 +166,7 @@ class A
                         {
                             Console.Write(chess[i, j] + "  ");
                         }
-                        else if (chess[i, j] == 4 && i == mr && j == mc)
+                        else if (chess[i, j] == 4 && temp[i, j] == max)
                         {
                             Console.ForegroundColor = ConsoleColor.Blue;
                             if (temp[i, j] > 9)
@@ -218,7 +212,11 @@ class A
             else
             {
                 var = false;
-                if (count < 0)
+                if (answer != "y")
+                {
+                    continue;
+                }
+                else if (count < 0)
                 {
                     Console.WriteLine("There is no fields left.");
                 }
